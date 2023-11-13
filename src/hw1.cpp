@@ -140,6 +140,16 @@ namespace algebra {
         return mat;
     }
 
+    /**
+     * Calculates the sum of a matrix and a constant value.
+     *
+     * @param matrix The matrix to be summed.
+     * @param c The constant value to be added to each element of the matrix.
+     *
+     * @return The resulting matrix after the sum operation.
+     *
+     * @throws None
+     */
     Matrix sum(const Matrix& matrix, double c)
     {
         if (matrix.size() == 0) return {};
@@ -155,9 +165,35 @@ namespace algebra {
         return mat;
     }
 
+    /**
+     * Sums two matrices element-wise and returns the result.
+     *
+     * @param matrix1 the first matrix to be summed
+     * @param matrix2 the second matrix to be summed
+     *
+     * @return the resulting matrix after element-wise summation
+     *
+     * @throws std::logic_error if the matrices have different dimensions
+     */
     Matrix sum(const Matrix& matrix1, const Matrix& matrix2)
     {
-        return {};
+        if (matrix1.size() == 0 && matrix2.size() == 0) return {};
+
+        if (matrix1.size() == 0 || matrix2.size() == 0) {
+            throw std::logic_error("The matrix with wrong dimensions cannot be summed");
+        }
+
+        if (matrix1.size() != matrix2.size() || matrix1[0].size() != matrix2[0].size()) {
+            throw std::logic_error("The matrix with wrong dimensions cannot be summed");
+        }
+
+        Matrix mat = zeros(matrix1.size(), matrix1[0].size());
+        for (int i=0; i<mat.size(); i++) {
+            for (int j=0; j<mat[i].size(); j++) {
+                mat[i][j] = matrix1[i][j] + matrix2[i][j];
+            }
+        }
+        return mat;
     }
 
     Matrix transpose(const Matrix& matrix)
