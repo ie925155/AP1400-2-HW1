@@ -1,6 +1,7 @@
 #include "hw1.h"
 
 #include <random>
+#include <iomanip>
 
 namespace algebra {
     /**
@@ -69,24 +70,89 @@ namespace algebra {
         return matrix;
     }
 
+    /**
+     * Displays the elements of a Matrix object in a formatted manner.
+     *
+     * @param matrix the Matrix object to be displayed
+     *
+     * @throws None
+     */
     void show(const Matrix& matrix)
     {
-
+        std::cout << std::noshowpoint << std::setprecision(3);
+        for (auto& row : matrix) {
+            for (auto& elem : row) {
+                std::cout << elem << "\t";
+            }
+            std::cout << std::endl;
+        }
     }
 
+    /**
+     * Multiply a matrix by a scalar value.
+     *
+     * @param matrix the matrix to be multiplied
+     * @param c the scalar value to multiply the matrix by
+     *
+     * @return the resulting matrix after multiplication
+     *
+     * @throws None
+     */
     Matrix multiply(const Matrix& matrix, double c)
     {
-        return {};
+        int n = matrix.size();
+        int m = matrix[0].size();
+        Matrix mat = zeros(n, m);
+
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < m; j++) {
+                mat[i][j] = matrix[i][j] * c;
+            }
+        }
+        return mat;
     }
 
+    /**
+     * Multiplies two matrices.
+     *
+     * @param matrix1 the first matrix to be multiplied
+     * @param matrix2 the second matrix to be multiplied
+     *
+     * @return the resulting matrix after multiplication
+     *
+     * @throws std::logic_error if the dimensions of the matrices are incompatible for multiplication
+     */
     Matrix multiply(const Matrix& matrix1, const Matrix& matrix2)
     {
-        return {};
+        if (matrix1.size() == 0 || matrix2.size() == 0) return {};
+
+        if (matrix1[0].size() != matrix2.size()) {
+            throw std::logic_error("The matrix with wrong dimensions cannot be multiplied");
+        }
+        Matrix mat = zeros(matrix1.size(), matrix2[0].size());
+        for (int i=0; i<mat.size(); i++) {
+            for (int j=0; j<mat[i].size(); j++) {
+                for (int k=0; k<matrix1[0].size(); k++) {
+                    mat[i][j] += matrix1[i][k] * matrix2[k][j];
+                }
+            }
+        }
+        return mat;
     }
 
     Matrix sum(const Matrix& matrix, double c)
     {
-        return {};
+        if (matrix.size() == 0) return {};
+
+        int n = matrix.size();
+        int m = matrix[0].size();
+        Matrix mat = zeros(n, m);
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < m; j++) {
+                mat[i][j] = matrix[i][j] + c;
+            }
+        }
+        return mat;
     }
 
     Matrix sum(const Matrix& matrix1, const Matrix& matrix2)

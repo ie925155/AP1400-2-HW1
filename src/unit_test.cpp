@@ -3,7 +3,6 @@
 #include "gmock/gmock.h"
 #include "hw1.h"
 
-/*
 TEST(HW1Test, ZEROS) {
     Matrix matrix{algebra::zeros(5, 6)};
 
@@ -127,6 +126,7 @@ TEST(HW1Test, SUM1) {
             EXPECT_NEAR(sum[i][j], matrix[i][j]+2.44, 0.03);
 }
 
+/*
 TEST(HW1Test, SUM2) {
     // Caution: sum of 2 empty matrices
     EXPECT_TRUE(algebra::sum(Matrix{}, Matrix{}).empty());
