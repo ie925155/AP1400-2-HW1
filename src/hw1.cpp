@@ -196,14 +196,59 @@ namespace algebra {
         return mat;
     }
 
+    /**
+     * Transposes a given matrix.
+     *
+     * @param matrix the matrix to be transposed
+     *
+     * @return the transposed matrix
+     *
+     * @throws None
+     */
     Matrix transpose(const Matrix& matrix)
     {
-        return {};
+        if (matrix.size() == 0) return {};
+
+        int n = matrix.size();
+        int m = matrix[0].size();
+        Matrix mat = zeros(m, n);
+
+        for (int i=0; i<n; i++) {
+            for (int j=0; j<m; j++) {
+                mat[j][i] = matrix[i][j];
+            }
+        }
+        return mat;
     }
 
-    Matrix minor(const Matrix& matrix)
+    /**
+     * Generates the minor matrix of the given matrix at the specified position.
+     *
+     * @param matrix The input matrix.
+     * @param n The row index of the element to exclude.
+     * @param m The column index of the element to exclude.
+     *
+     * @return The minor matrix.
+     *
+     * @throws std::logic_error if the matrix dimensions are incorrect.
+     */
+    Matrix minor(const Matrix& matrix, size_t n, size_t m)
     {
-        return {};
+        if (matrix.size() == 0) return {};
+
+        if (matrix.size() <= n || matrix[0].size() <= m) {
+            throw std::logic_error("The matrix with wrong dimensions cannot be minor");
+        }
+        int skipRow = n, skipCol = m;
+        Matrix mat = zeros(matrix.size()-1, matrix[0].size()-1);
+        for (int i=0; i<mat.size(); i++) {
+            for (int j=0; j<mat[i].size(); j++) {
+                int ii = (i<skipRow) ? i : i+1;
+                int jj = (j<skipCol) ? j : j+1;
+                mat[i][j] = matrix[ii][jj];
+            }
+        }
+        return mat;
     }
 
     double determinant(const Matrix& matrix)

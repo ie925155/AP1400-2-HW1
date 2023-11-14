@@ -29,7 +29,7 @@ namespace algebra {
 
     Matrix transpose(const Matrix& matrix);
 
-    Matrix minor(const Matrix& matrix);
+    Matrix minor(const Matrix& matrix, size_t n, size_t m);
 
     double determinant(const Matrix& matrix);
 
