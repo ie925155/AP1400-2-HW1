@@ -286,9 +286,30 @@ namespace algebra {
         return ret;
     }
 
+    static Matrix adj(const Matrix& matrix) {
+        int n = matrix.size();
+        Matrix mat = zeros(n, n);
+        for (int i=0; i<n; i++) {
+            for (int j=0; j<n; j++) {
+                mat[i][j] = pow(-1, i+j+2) * determinant(minor(matrix, j, i));
+            }
+        }
+        return mat;
+    }
+
     Matrix inverse(const Matrix& matrix)
     {
-        return {};
+        int n = matrix.size();
+        if (n == 0) return matrix;
+        if (matrix.size() != matrix[0].size()) {
+            throw std::logic_error("The matrix with wrong dimensions cannot be determinant");
+        }
+        double det = determinant(matrix);
+        if (det == 0) {
+            throw std::logic_error("The matrix cannot be inverse");
+        }
+        Matrix mat = adj(matrix);
+        return multiply(mat, 1/det);
     }
 
     Matrix concatenate(const Matrix& matrix1, const Matrix& matrix2, int axis=0)
