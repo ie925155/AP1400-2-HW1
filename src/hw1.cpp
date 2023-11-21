@@ -285,7 +285,15 @@ namespace algebra {
         }
         return ret;
     }
-
+    /**
+     * Generates the adjoint matrix of the given matrix.
+     *
+     * @param matrix the input matrix
+     *
+     * @return the adjoint matrix of the input matrix
+     *
+     * @throws None
+     */
     static Matrix adj(const Matrix& matrix) {
         int n = matrix.size();
         Matrix mat = zeros(n, n);
@@ -296,7 +304,16 @@ namespace algebra {
         }
         return mat;
     }
-
+    /**
+     * Calculates the inverse of a square matrix.
+     *
+     * @param matrix the input matrix
+     *
+     * @return the inverse of the input matrix
+     *
+     * @throws std::logic_error if the input matrix has wrong dimensions
+     * @throws std::logic_error if the input matrix is not invertible
+     */
     Matrix inverse(const Matrix& matrix)
     {
         int n = matrix.size();
