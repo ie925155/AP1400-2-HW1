@@ -250,10 +250,40 @@ namespace algebra {
         }
         return mat;
     }
-
+    /**
+     * Calculates the determinant of a square matrix.
+     *
+     * @param matrix the input matrix
+     *
+     * @return the determinant of the matrix
+     *
+     * @throws std::logic_error if the matrix has wrong dimensions
+     */
     double determinant(const Matrix& matrix)
     {
-        return {};
+        int n = matrix.size();
+        if (n == 0) return 1;
+
+        if (matrix.size() != matrix[0].size()) {
+            throw std::logic_error("The matrix with wrong dimensions cannot be determinant");
+        }
+        if (n == 1) return matrix[0][0];
+        if (n == 2) return matrix[0][0]*matrix[1][1] - matrix[0][1]*matrix[1][0];
+        if (n == 3) {
+            return  matrix[0][0] * matrix[1][1] * matrix[2][2] +
+                    matrix[0][1] * matrix[1][2] * matrix[2][0] +
+                    matrix[0][2] * matrix[1][0] * matrix[2][1] -
+                    matrix[0][2] * matrix[1][1] * matrix[2][0] -
+                    matrix[0][0] * matrix[1][2] * matrix[2][1] -
+                    matrix[0][1] * matrix[1][0] * matrix[2][2];
+        }
+        double ret = 0;
+        for (int i=0; i<n; i++) {
+           Matrix m = minor(matrix, 0, i);
+           int sign = pow(-1, 1+(i+1));
+           ret += matrix[0][i] * sign *  determinant(m);
+        }
+        return ret;
     }
 
     Matrix inverse(const Matrix& matrix)
