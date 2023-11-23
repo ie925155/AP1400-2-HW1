@@ -380,10 +380,29 @@ namespace algebra {
             return mat;
         }
     }
-
+    /**
+     * Swaps two rows in a matrix and returns the modified matrix.
+     *
+     * @param matrix The input matrix.
+     * @param r1 The index of the first row to swap.
+     * @param r2 The index of the second row to swap.
+     *
+     * @return The modified matrix after swapping the rows.
+     *
+     * @throws std::logic_error If the row index is out of range.
+     */
     Matrix ero_swap(const Matrix& matrix, size_t r1, size_t r2)
     {
-        return {};
+        int n = matrix.size();
+        int m = matrix[0].size();
+        if (r1 >= n || r2 >= n) {
+            throw std::logic_error("The row index is out of range");
+        }
+        Matrix mat = sum(zeros(n, m), matrix);
+        for (int j=0; j<m; j++) {
+            std::swap(mat[r1][j], mat[r2][j]);
+        }
+        return mat;
     }
 
     Matrix ero_multiply(const Matrix& matrix, size_t r, double c)

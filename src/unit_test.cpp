@@ -284,7 +284,6 @@ TEST(HW1Test, CONCATENATE2) {
     EXPECT_DOUBLE_EQ(matrix[1][3], matrix2[1][0]);
 }
 
-/*
 TEST(HW1Test, ERO_SWAP) {
     // Caution: r1 or r2 inputs are out of range
     EXPECT_THROW(algebra::ero_swap(Matrix{{1, 2}}, 0, 1), std::logic_error);
@@ -300,6 +299,7 @@ TEST(HW1Test, ERO_SWAP) {
     EXPECT_TRUE(swap[3] == matrix[2]);
 }
 
+/*
 TEST(HW1Test, ERO_MULTIPLY) {
     Matrix matrix{algebra::random(4, 3, 0, 4)};
     Matrix ero{algebra::ero_multiply(matrix, 2, 1.5)};
