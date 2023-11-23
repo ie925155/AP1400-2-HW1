@@ -328,10 +328,57 @@ namespace algebra {
         Matrix mat = adj(matrix);
         return multiply(mat, 1/det);
     }
-
+    /**
+     * Concatenates two matrices along a specified axis.
+     *
+     * @param matrix1 The first matrix to concatenate.
+     * @param matrix2 The second matrix to concatenate.
+     * @param axis The axis along which to concatenate the matrices. Default is 0.
+     *
+     * @return The concatenated matrix.
+     *
+     * @throws std::logic_error if the axis is not 0 or 1, or if the matrices have incompatible dimensions.
+     */
     Matrix concatenate(const Matrix& matrix1, const Matrix& matrix2, int axis=0)
     {
-        return {};
+        if (axis != 0 && axis != 1) {
+            throw std::logic_error("The axis should be 0 or 1");
+        }
+        int n1 = matrix1.size();
+        int m1 = matrix1[0].size();
+        int n2 = matrix2.size();
+        int m2 = matrix2[0].size();
+        if (axis == 0) {
+            if (m1 != m2) {
+                throw std::logic_error("The matrix with wrong dimensions cannot be concatenated");
+            }
+            Matrix mat = zeros(n1+n2, m1);
+            for (int i=0; i<n1; i++) {
+                for (int j=0; j<m1; j++) {
+                    mat[i][j] = matrix1[i][j];
+                }
+            }
+            for (int i=0; i<n2; i++) {
+                for (int j=0; j<m2; j++) {
+                    mat[i+n1][j] = matrix2[i][j];
+                }
+            }
+            return mat;
+        } else {
+            if (n1 != n2) {
+                throw std::logic_error("The matrix with wrong dimensions cannot be concatenated");
+            }
+            Matrix mat = zeros(n1, m1+m2);
+            for (int i=0; i<n1; i++) {
+                for (int j=0; j<m1; j++) {
+                    mat[i][j] = matrix1[i][j];
+                }
+                for (int j=0; j<m2; j++) {
+                    mat[i][m1+j] = matrix2[i][j];
+                }
+            }
+            return mat;
+        }
     }
 
     Matrix ero_swap(const Matrix& matrix, size_t r1, size_t r2)
