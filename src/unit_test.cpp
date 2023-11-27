@@ -312,7 +312,6 @@ TEST(HW1Test, ERO_MULTIPLY) {
         EXPECT_NEAR(ero[2][i], matrix[2][i]*1.5, 0.03);
 }
 
-/*
 TEST(HW1Test, ERO_SUM) {
     Matrix matrix{algebra::random(4, 3, 0, 4)};
     Matrix ero{algebra::ero_sum(matrix, 0, 2, 3)};
@@ -326,6 +325,7 @@ TEST(HW1Test, ERO_SUM) {
         EXPECT_NEAR(ero[3][i], matrix[0][i]*2+matrix[3][i], 0.03);
 }
 
+/*
 TEST(HW1Test, UPPER_TRIANGULAR1) {
     // Caution: empty matrix
     EXPECT_TRUE(algebra::upper_triangular(Matrix{}).empty());

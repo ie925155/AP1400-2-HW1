@@ -405,30 +405,53 @@ namespace algebra {
         return mat;
     }
     /**
-     * Multiplies a row of a matrix by a scalar.
+     * Multiplies a given row of a matrix by a constant factor.
      *
-     * @param matrix the input matrix
-     * @param r the index of the row to be multiplied
-     * @param c the scalar to multiply the row by
+     * @param matrix the matrix to operate on
+     * @param r the index of the row to multiply
+     * @param c the constant factor to multiply the row by
      *
-     * @return the resulting matrix after the row multiplication
+     * @return the resulting matrix after multiplying the row by the constant factor
      *
-     * @throws None
+     * @throws std::logic_error if the row index is out of range
      */
     Matrix ero_multiply(const Matrix& matrix, size_t r, double c)
     {
         int n = matrix.size();
         int m = matrix[0].size();
+        if (r >= n) {
+            throw std::logic_error("The row index is out of range");
+        }
         Matrix mat = sum(zeros(n, m), matrix);
         for (int j=0; j<m; j++) {
             mat[r][j] *= c;
         }
         return mat;
     }
-
+    /**
+     * Calculates the row-by-row sum of a matrix and performs an element-wise operation between two rows.
+     *
+     * @param matrix The input matrix.
+     * @param r1 The index of the first row.
+     * @param c The constant factor to multiply the second row with before adding it to the first row.
+     * @param r2 The index of the second row.
+     *
+     * @return The resulting matrix after performing the row-by-row sum and element-wise operation.
+     *
+     * @throws std::logic_error if the row indices are out of range.
+     */
     Matrix ero_sum(const Matrix& matrix, size_t r1, double c, size_t r2)
     {
-        return {};
+        int n = matrix.size();
+        int m = matrix[0].size();
+        if (r1 >= n || r2 >= n) {
+            throw std::logic_error("The row index is out of range");
+        }
+        Matrix mat = sum(zeros(n, m), matrix);
+        for (int j=0; j<m; j++) {
+            mat[r2][j] += c*mat[r1][j];
+        }
+        return mat;
     }
 
     Matrix upper_triangular(const Matrix& matrix)
