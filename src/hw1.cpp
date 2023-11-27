@@ -453,9 +453,32 @@ namespace algebra {
         }
         return mat;
     }
-
+    /**
+     * Generates an upper triangular matrix from the given matrix.
+     *
+     * @param matrix the input matrix
+     *
+     * @return the upper triangular matrix
+     *
+     * @throws std::logic_error if the input matrix has wrong dimensions
+     */
     Matrix upper_triangular(const Matrix& matrix)
     {
-        return {};
+        int n = matrix.size();
+        if (n == 0 || n == 1) {
+            return {};
+        }
+        if (n != matrix[0].size()) {
+            throw std::logic_error("The matrix with wrong dimensions cannot be upper triangular");
+        }
+        Matrix mat(matrix);
+        for (int i=0; i<n; i++) {
+            double pivot = mat[i][i];
+            for (int j=i+1; j<n; j++) {
+                double factor = mat[j][i]/pivot;
+                mat = ero_sum(mat, i, -factor, j);
+            }
+        }
+        return mat;
     }
 }
