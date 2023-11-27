@@ -404,10 +404,26 @@ namespace algebra {
         }
         return mat;
     }
-
+    /**
+     * Multiplies a row of a matrix by a scalar.
+     *
+     * @param matrix the input matrix
+     * @param r the index of the row to be multiplied
+     * @param c the scalar to multiply the row by
+     *
+     * @return the resulting matrix after the row multiplication
+     *
+     * @throws None
+     */
     Matrix ero_multiply(const Matrix& matrix, size_t r, double c)
     {
-        return {};
+        int n = matrix.size();
+        int m = matrix[0].size();
+        Matrix mat = sum(zeros(n, m), matrix);
+        for (int j=0; j<m; j++) {
+            mat[r][j] *= c;
+        }
+        return mat;
     }
 
     Matrix ero_sum(const Matrix& matrix, size_t r1, double c, size_t r2)

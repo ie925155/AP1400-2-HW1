@@ -299,7 +299,6 @@ TEST(HW1Test, ERO_SWAP) {
     EXPECT_TRUE(swap[3] == matrix[2]);
 }
 
-/*
 TEST(HW1Test, ERO_MULTIPLY) {
     Matrix matrix{algebra::random(4, 3, 0, 4)};
     Matrix ero{algebra::ero_multiply(matrix, 2, 1.5)};
@@ -313,6 +312,7 @@ TEST(HW1Test, ERO_MULTIPLY) {
         EXPECT_NEAR(ero[2][i], matrix[2][i]*1.5, 0.03);
 }
 
+/*
 TEST(HW1Test, ERO_SUM) {
     Matrix matrix{algebra::random(4, 3, 0, 4)};
     Matrix ero{algebra::ero_sum(matrix, 0, 2, 3)};
